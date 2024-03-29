@@ -23,6 +23,10 @@ export function SelectLevelPage() {
             </Link>
           </li>
         </ul>
+        <div className={styles.checkbox}>
+          <input type="checkbox"></input>
+          <label>3 жизни</label>
+        </div>
       </div>
     </div>
   );
