@@ -5,6 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
+import { useLightMode } from "../../hooks/useLightMode";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -40,7 +41,7 @@ function getTimerValue(startDate, endDate) {
  * pairsCount - сколько пар будет в игре
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
-export function Cards({ pairsCount = 3, isEasyMode, previewSeconds = 5 }) {
+export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
   // Текущий статус игры
@@ -56,8 +57,9 @@ export function Cards({ pairsCount = 3, isEasyMode, previewSeconds = 5 }) {
     seconds: 0,
     minutes: 0,
   });
+  const { isEasyMode } = useLightMode();
+  const [lives, setLives] = useState(isEasyMode ? 3 : 1);
 
-  const [lives, setLives] = useState(3);
   //isEasyMode = true;
 
   function finishGame(status = STATUS_LOST) {
@@ -79,7 +81,7 @@ export function Cards({ pairsCount = 3, isEasyMode, previewSeconds = 5 }) {
   }
 
   function livesCounter() {
-    if (lives > 1) {
+    if (lives > 0) {
       setLives(lives - 1);
     } else {
       finishGame(STATUS_LOST);
@@ -139,8 +141,23 @@ export function Cards({ pairsCount = 3, isEasyMode, previewSeconds = 5 }) {
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
-      {
-        isEasyMode ? livesCounter() : finishGame(STATUS_LOST);
+      if (isEasyMode) {
+        livesCounter();
+        console.log(openCardsWithoutPair);
+        setTimeout(() => {
+          const newCards = cards.filter(card => {
+            if (openCardsWithoutPair.find(c => c.id === card.id)) {
+              console.log(card);
+              return { ...card, open: false };
+            }
+
+            return card;
+          });
+          console.log(newCards);
+          setCards(newCards);
+        }, 500);
+      } else {
+        finishGame(STATUS_LOST);
       }
     }
 

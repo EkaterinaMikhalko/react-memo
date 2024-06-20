@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
 //import { useState } from "react";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import { useLightMode } from "../../hooks/useLightMode";
 
 export function SelectLevelPage() {
+  const { isEasyMode, setIsEasyMode } = useLightMode();
   // const [isEasyMode, setIsEasyMode] = useState();
 
-  // function handleChangeMode() {
-  //   if (isEasyMode === true) {
-  //     setIsEasyMode(false);
-  //   }
-  // }
+  function handleChangeMode() {
+    setIsEasyMode(!isEasyMode);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.modal}>
@@ -37,7 +37,14 @@ export function SelectLevelPage() {
         2. Отобразить количество попыток в компоненте cards, там же будет состояние попыток useState(isEasyMode ? 3 : 1);
         3. Нужно в компоненте cards внутри функции opencard создать условие, если включен легкий режим
         4. Если ровно 2 карточки без пары, а попытки еще остались, то мы должны перевернуть карточки без пары и вычесть попытку */}
-        <Checkbox id={"modeCheckbox"} name={"modeCheckbox"} label={"Легкий режим (3 жизни)"} onClick={() => {}} />
+        <Checkbox
+          id={"modeCheckbox"}
+          name={"modeCheckbox"}
+          label={"Легкий режим (3 жизни)"}
+          onChange={() => {
+            handleChangeMode();
+          }}
+        />
       </div>
     </div>
   );
