@@ -60,8 +60,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const { isEasyMode } = useLightMode();
   const [lives, setLives] = useState(isEasyMode ? 3 : 1);
 
-  //isEasyMode = true;
-
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
     setStatus(status);
@@ -74,6 +72,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setStatus(STATUS_IN_PROGRESS);
   }
   function resetGame() {
+    setLives(isEasyMode ? 3 : 1);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
@@ -81,9 +80,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   }
 
   function livesCounter() {
-    if (lives > 0) {
+    if (lives > 1) {
       setLives(lives - 1);
     } else {
+      setLives(lives - 1);
       finishGame(STATUS_LOST);
       return;
     }
@@ -145,7 +145,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         livesCounter();
         console.log(openCardsWithoutPair);
         setTimeout(() => {
-          const newCards = cards.filter(card => {
+          const newCards = cards.map(card => {
             if (openCardsWithoutPair.find(c => c.id === card.id)) {
               console.log(card);
               return { ...card, open: false };
