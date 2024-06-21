@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import { useLightMode } from "../../hooks/useLightMode";
-// import { useState } from "react";
-// import { Button } from "../../components/Button/Button";
+import { useState } from "react";
+import { Button } from "../../components/Button/Button";
 
-//const levels = [3, 6, 9];
+const levels = [3, 6, 9];
 export function SelectLevelPage() {
   const { isEasyMode, setIsEasyMode } = useLightMode();
-  //const [chooseLevel, setChooseLevel] = useState();
+  const [chooseLevel, setChooseLevel] = useState();
   function handleChangeMode() {
     setIsEasyMode(!isEasyMode);
-    console.log(isEasyMode);
   }
 
   return (
@@ -19,19 +18,18 @@ export function SelectLevelPage() {
       <div className={styles.modal}>
         <h1 className={styles.title}>Выбери сложность</h1>
         <ul className={styles.levels}>
-          <li className={styles.level}>
-            {/* {levels.map((level, index) => (
-            // <li
-            //   className={styles.level}
-            //    key={level}
-            //     onClick={() => {
-            //       setChooseLevel(level);
-            //     }}
-            // >
-            //   <div className={styles.levelLink}>{index + 1}</div>
-            //   </li> 
-            ))}*/}
-            <Link className={styles.levelLink} to="/game/3">
+          {levels.map((level, index) => (
+            <li
+              className={styles.level}
+              key={level}
+              onClick={() => {
+                setChooseLevel(level);
+              }}
+            >
+              <div className={styles.levelLink}>{index + 1}</div>
+            </li>
+          ))}
+          {/* <Link className={styles.levelLink} to="/game/3">
               1
             </Link>
           </li>
@@ -45,7 +43,7 @@ export function SelectLevelPage() {
             <Link className={styles.levelLink} to="/game/9">
               3
             </Link>
-          </li>
+          </li> */}
         </ul>
 
         {/* 1. Создать контекст, который будет будет передавать данные режима
@@ -63,9 +61,9 @@ export function SelectLevelPage() {
           }}
         />
 
-        {/* <Link to={`/game/${chooseLevel}`}>
+        <Link to={`/game/${chooseLevel}`}>
           <Button>Начать игру</Button>
-        </Link> */}
+        </Link>
       </div>
     </div>
   );

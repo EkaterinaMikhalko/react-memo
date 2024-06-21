@@ -47,6 +47,9 @@
   border-radius: 12px;
   background: #fff;
 }
+.level:hover{
+background-color: aliceblue;
+}
 
 .levelLink {
   color: #0080c1;
