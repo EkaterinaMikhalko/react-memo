@@ -66,3 +66,10 @@ background-color: aliceblue;
 .levelLink:visited {
   color: #0080c1;
 }
+
+.leaderBoardLink{
+  font-family: StratosSkyeng;
+  font-size: 18px;
+  line-height: 32px;
+  padding-top: 16px;
+}
