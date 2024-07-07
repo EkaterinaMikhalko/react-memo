@@ -70,3 +70,12 @@
 
   margin-bottom: -12px;
 }
+
+.lives {
+  font-family: StratosSkyeng;
+  color: #fff;
+  font-size: 30px;
+  line-height: 30px;
+  margin-top: 34px;
+  margin-bottom: 10px;
+}

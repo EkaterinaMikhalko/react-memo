@@ -5,6 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
+import { useLightMode } from "../../hooks/useLightMode";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -56,6 +57,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     seconds: 0,
     minutes: 0,
   });
+  const { isEasyMode } = useLightMode();
+  const [lives, setLives] = useState(isEasyMode ? 3 : 1);
 
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
@@ -69,10 +72,21 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setStatus(STATUS_IN_PROGRESS);
   }
   function resetGame() {
+    setLives(isEasyMode ? 3 : 1);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
+  }
+
+  function livesCounter() {
+    if (lives > 1) {
+      setLives(lives - 1);
+    } else {
+      setLives(lives - 1);
+      finishGame(STATUS_LOST);
+      return;
+    }
   }
 
   /**
@@ -127,8 +141,24 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
-      finishGame(STATUS_LOST);
-      return;
+      if (isEasyMode) {
+        livesCounter();
+        console.log(openCardsWithoutPair);
+        setTimeout(() => {
+          const newCards = cards.map(card => {
+            if (openCardsWithoutPair.find(c => c.id === card.id)) {
+              console.log(card);
+              return { ...card, open: false };
+            }
+
+            return card;
+          });
+          console.log(newCards);
+          setCards(newCards);
+        }, 500);
+      } else {
+        finishGame(STATUS_LOST);
+      }
     }
 
     // ... игра продолжается
@@ -195,6 +225,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
+        {isEasyMode ? <p className={styles.lives}>Жизней: {lives}</p> : null}
         {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
       </div>
 
