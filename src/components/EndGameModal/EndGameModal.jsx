@@ -26,8 +26,6 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     newLeader = false;
   }
 
-  console.log(newLeader);
-
   const [leaderName, setLeaderName] = useState("Пользователь");
   const gameDuration = gameDurationMinutes * 60 + gameDurationSeconds;
 
@@ -38,7 +36,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         console.log(error);
       });
   };
-  console.log(newLeader);
+
   return (
     <>
       <div className={newLeader ? cn(styles.modal, styles.modalWin) : styles.modal}>
@@ -51,7 +49,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
           <h2 className={styles.title}>{title}</h2>
         )}
 
-        {newLeader ? (
+        {newLeader && (
           <input
             className={styles.leaderName}
             onChange={e => {
@@ -61,7 +59,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
             type="text"
             placeholder="Пользователь"
           />
-        ) : null}
+        )}
 
         <p className={styles.description}>Затраченное время:</p>
         <div className={styles.time}>

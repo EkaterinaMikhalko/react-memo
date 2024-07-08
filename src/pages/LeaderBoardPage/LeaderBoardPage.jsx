@@ -40,7 +40,7 @@ export function LeaderBoardPage() {
       {leaders
         .sort((a, b) => a.time - b.time)
         .map((leader, index) => (
-          <div className={styles.leaderBoardContainer}>
+          <div className={styles.leaderBoardContainer} key={index}>
             <div className={styles.leaderBoardColomns}>
               <div className={styles.colomn1}>
                 <p className={styles.leaderBoardText}>#{index + 1}</p>
