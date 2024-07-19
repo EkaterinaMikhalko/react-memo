@@ -75,3 +75,8 @@
   font-weight: 400;
   line-height: 32px;
 }
+.leaderBoardAchievement{
+  display: flex;
+  align-items: center;
+  padding: 6px;
+}
