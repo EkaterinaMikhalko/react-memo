@@ -33,6 +33,9 @@ export function LeaderBoardPage() {
             <p className={styles.leaderBoardTopText}>Пользователь</p>
           </div>
           <div className={styles.colomn3}>
+            <p className={styles.leaderBoardTopText}>Достижения</p>
+          </div>
+          <div className={styles.colomn4}>
             <p className={styles.leaderBoardTopText}>Время</p>
           </div>
         </div>
@@ -49,8 +52,11 @@ export function LeaderBoardPage() {
               <div className={styles.colomn2}>
                 <p className={styles.leaderBoardText}>{leader.name}</p>
               </div>
-
               <div className={styles.colomn3}>
+                <p className={styles.leaderBoardText}>{leader.name}</p>
+              </div>
+
+              <div className={styles.colomn4}>
                 <p className={styles.leaderBoardText}>
                   {Math.floor(leader.time / 60)
                     .toString()

@@ -39,14 +39,19 @@
   width: 178px;
 }
 .colomn2 {
-  padding-left: 150px;
+  padding-left: 65px;
   padding-top: 16px;
-  width: 324px;
+  width: 227px;
 }
 .colomn3 {
-  padding-left: 150px;
+  padding-left: 65px;
   padding-top: 16px;
-  width: 102px;
+  width: 194px;
+}
+.colomn4 {
+  padding-left: 65px;
+  padding-top: 16px;
+  width: 92px;
 }
 .leaderBoardTopText {
   color: #999999;
