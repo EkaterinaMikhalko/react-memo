@@ -1,4 +1,4 @@
-const ApiUrl = "https://wedev-api.sky.pro/api/leaderboard";
+const ApiUrl = "https://wedev-api.sky.pro/api/v2/leaderboard";
 export async function getLeaders() {
   const res = await fetch(ApiUrl);
 
